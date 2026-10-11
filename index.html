@@ -1,118 +1,944 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="HoopRank KE — a community-built watchlist for Kenyan school basketball prospects.">
-<title>HoopRank KE | School Basketball Watchlist</title>
-<style>
-:root{--bg:#0b0d12;--panel:#141821;--panel2:#1b202b;--text:#f4f6fb;--muted:#a8b0c0;--orange:#ff8a24;--orange2:#ffb15c;--line:#2a3140;--green:#76e0b0}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(900px 500px at 90% -5%,#39210f 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
-a{color:var(--orange2)}.wrap{width:min(1100px,92%);margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--line)}.brand{font-weight:900;letter-spacing:.5px;font-size:1.25rem}.brand span{color:var(--orange)}.tag{font-size:.75rem;border:1px solid #6e4428;border-radius:999px;padding:5px 10px;color:#ffd2a8}
-.hero{padding:58px 0 38px;display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:center}.eyebrow{color:var(--orange2);font-size:.78rem;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(2.4rem,6vw,4.7rem);line-height:.99;letter-spacing:-2px;margin:12px 0 18px}.hero h1 em{font-style:normal;color:var(--orange)}.hero p{color:var(--muted);max-width:620px;font-size:1.05rem}.hero-art{min-height:240px;border:1px solid #5b3925;border-radius:28px;background:linear-gradient(145deg,#2c1b11,#171b25 65%);display:grid;place-items:center;overflow:hidden;position:relative}.ball{width:145px;height:145px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#ffbd76,#f57919 65%,#c84d0b);box-shadow:0 22px 70px #ff7a1b33;position:relative}.ball:before,.ball:after{content:"";position:absolute;inset:0;border:3px solid #54280f;border-radius:50%}.ball:before{width:55px;left:42px;border-top:0;border-bottom:0}.ball:after{height:55px;top:42px;border-left:0;border-right:0}.courtline{position:absolute;width:250px;height:110px;border:2px solid #e88b47;border-radius:50%;bottom:-45px;opacity:.5}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--orange);color:#17100a}.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.notice{margin:18px 0 30px;padding:14px 16px;border:1px solid #684126;background:#24180f;border-radius:14px;color:#f6d4b8;font-size:.92rem}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:38px 0 16px}.section-head h2{font-size:1.7rem;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:.9rem}.filters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.filters input,.filters select,.form input,.form textarea,.form select{background:#0f1219;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit}.filters input{flex:1;min-width:180px}.filters select{min-width:150px}
-.players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.player{background:linear-gradient(140deg,var(--panel),#11151c);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;grid-template-columns:54px 1fr;gap:14px;position:relative}.rank{width:48px;height:48px;border-radius:14px;background:var(--panel2);display:grid;place-items:center;font-size:1.25rem;font-weight:900;color:var(--muted)}.player.featured{border-color:#b76526;background:linear-gradient(140deg,#2b1c12,#141821 70%)}.player.featured .rank{background:var(--orange);color:#1c1108}.player h3{margin:0;font-size:1.1rem}.meta{color:var(--muted);font-size:.85rem;margin-top:3px}.player p{color:#d4d9e3;font-size:.91rem;margin:10px 0}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:.72rem;color:#dce2ee;margin:3px 4px 0 0}.vote{margin-top:12px;background:transparent;color:var(--orange2);border:1px solid #704625;border-radius:9px;padding:8px 11px;font-weight:800;cursor:pointer}.vote:disabled{opacity:.65;cursor:default}.count{font-size:.82rem;color:var(--muted);margin-left:8px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:32px 0}.box{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}.box h2{margin-top:0}.box p,.box li{color:var(--muted)}.form{display:grid;gap:11px}.form input,.form textarea,.form select{width:100%}.form textarea{min-height:90px;resize:vertical}.form small{color:var(--muted)}.status{font-size:.9rem;color:var(--green);min-height:1.2em}.criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.criterion{background:var(--panel2);border-radius:12px;padding:12px}.criterion b{display:block;color:var(--orange2)}footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 40px;color:var(--muted);font-size:.85rem}.footrow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.smallprint{font-size:.78rem;color:#8993a5}
-@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:38px}.hero-art{min-height:190px}.players,.two-col{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.criteria{grid-template-columns:1fr}.topbar{gap:12px}.tag{font-size:.68rem}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="HoopRank KE — Kenya's community-driven school basketball watchlist.">
+  <title>HoopRank KE</title>
+  <style>
+    :root {
+      --bg: #091018;
+      --bg-2: #111b29;
+      --panel: #101923;
+      --panel-2: #162334;
+      --panel-3: #1d2b3d;
+      --card: rgba(17, 24, 33, 0.8);
+      --text: #edf3ff;
+      --muted: #a6b4c6;
+      --line: rgba(160, 180, 210, 0.16);
+      --orange: #ff9d3d;
+      --orange-2: #ffbf69;
+      --green: #7ee0b0;
+      --red: #ff7588;
+      --shadow: 0 20px 45px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255, 145, 77, 0.18), transparent 24%),
+        radial-gradient(circle at left top, rgba(75, 118, 255, 0.14), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max), 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(9, 16, 24, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--orange), #ff7043);
+      color: #111;
+      box-shadow: 0 10px 30px rgba(255, 157, 61, 0.35);
+    }
+
+    .brand strong { color: var(--text); }
+    .brand span { color: var(--orange-2); }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 170, 85, 0.4);
+      background: rgba(255, 157, 61, 0.08);
+      color: var(--orange-2);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 68px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      color: var(--orange-2);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.07em;
+    }
+
+    h1 .accent {
+      color: var(--orange);
+      display: inline-block;
+      font-style: normal;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      margin: 18px 0 28px;
+      max-width: 640px;
+      font-size: 1.08rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), #ef7f2d);
+      color: #120d08;
+      box-shadow: 0 18px 40px rgba(255, 157, 61, 0.32);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .stat-pill {
+      min-width: 120px;
+      background: rgba(15, 22, 31, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .stat-pill strong {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .stat-pill span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 170, 85, 0.25);
+      background:
+        linear-gradient(180deg, rgba(255, 170, 85, 0.10), transparent),
+        linear-gradient(145deg, #1d2d1f, #101923 38%, #121a2a 100%);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .court-glow {
+      position: absolute;
+      inset: auto 40px 34px 40px;
+      height: 180px;
+      border-radius: 70% 70% 0 0;
+      border: 2px solid rgba(255, 179, 102, 0.42);
+      background: linear-gradient(180deg, rgba(255, 157, 61, 0.08), transparent);
+    }
+
+    .ball-scene {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .ball {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffd0a1 0%, #ffb65c 14%, #ef7f2d 58%, #d46c1b 100%);
+      box-shadow: 0 30px 80px rgba(255, 140, 34, 0.3);
+      transform: translateY(-10px);
+    }
+
+    .ball::before, .ball::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(88, 46, 16, 0.8);
+    }
+
+    .ball::before {
+      inset: 18px 48px 18px 48px;
+      border-left: none;
+      border-right: none;
+    }
+
+    .ball::after {
+      inset: 48px 18px 48px 18px;
+      border-top: none;
+      border-bottom: none;
+    }
+
+    .score-card {
+      position: absolute;
+      right: 22px;
+      bottom: 26px;
+      background: rgba(13, 20, 28, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .score-card strong {
+      font-size: 1.45rem;
+      display: block;
+      color: var(--orange-2);
+    }
+
+    .score-card span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .announcement {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      background: rgba(255, 157, 61, 0.06);
+      border: 1px solid rgba(255, 157, 61, 0.22);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #f8c894;
+      font-size: 0.92rem;
+    }
+
+    .section {
+      padding: 48px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      letter-spacing: -0.06em;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0 20px;
+    }
+
+    .field {
+      background: rgba(12, 18, 27, 0.85);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 14px;
+      min-height: 48px;
+      outline: none;
+    }
+
+    .field::placeholder { color: #7f8fa8; }
+
+    .search {
+      flex: 1;
+      min-width: 190px;
+    }
+
+    select.field { min-width: 180px; }
+
+    .players {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .player-card {
+      background: linear-gradient(180deg, rgba(20, 28, 38, 0.9), rgba(11, 17, 26, 0.92));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .player-card.featured {
+      border-color: rgba(255, 157, 61, 0.4);
+      background: linear-gradient(180deg, rgba(46, 28, 15, 0.9), rgba(13, 19, 28, 0.95));
+    }
+
+    .player-rank {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      font-weight: 900;
+      color: var(--muted);
+      font-size: 1.3rem;
+    }
+
+    .player-card.featured .player-rank {
+      background: linear-gradient(135deg, var(--orange), #ffb45f);
+      color: #1a1209;
+      border-color: transparent;
+    }
+
+    .player-name {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .player-name h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .player-meta {
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .player-story {
+      margin: 0 0 12px;
+      color: #dfe8f7;
+      font-size: 0.92rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: #dfe8f7;
+      font-size: 0.72rem;
+    }
+
+    .vote-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .vote-btn {
+      border: 1px solid rgba(255, 157, 61, 0.35);
+      background: rgba(255, 157, 61, 0.04);
+      color: var(--orange-2);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .vote-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    .vote-count {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .tiny {
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .box {
+      background: linear-gradient(180deg, rgba(16, 25, 35, 0.98), rgba(12, 18, 27, 0.94));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.6rem;
+      letter-spacing: -0.04em;
+    }
+
+    .box p {
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .score-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 12px;
+    }
+
+    .score-box strong {
+      display: block;
+      color: var(--orange-2);
+      font-size: 1.2rem;
+      margin-bottom: 3px;
+    }
+
+    .score-box span {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 157, 61, 0.12);
+      color: var(--orange-2);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .step h4 { margin: 0 0 4px; }
+    .step p { margin: 0; font-size: 0.9rem; }
+
+    form.form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form input,
+    .form textarea,
+    .form select {
+      width: 100%;
+      background: rgba(8, 12, 18, 0.8);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .status {
+      min-height: 22px;
+      color: var(--green);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      padding: 28px 0 48px;
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .grid-2, .players {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 340px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar-inner {
+        min-height: 64px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-<header class="wrap topbar">
-  <div class="brand">🏀 HOOPRANK <span>KE</span></div>
-  <div class="tag">BETA · VERSION 1.0</div>
-</header>
-<main class="wrap">
-  <section class="hero">
-    <div>
-      <div class="eyebrow">Kenyan school basketball</div>
-      <h1>Find the next <em>great.</em></h1>
-      <p>A community-built watchlist celebrating school basketball talent across Kenya. We start with ten names, improve the evidence, and grow toward a Top 100.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#rankings">Explore the Top 10 ↓</a>
-        <a class="btn btn-secondary" href="#nominate">Nominate a player +</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#top" class="brand" aria-label="HoopRank KE home">
+        <span class="brand-mark">🏀</span>
+        <strong>HoopRank</strong> <span>KE</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#rankings">Rankings</a>
+        <a href="#model">Model</a>
+        <a href="#nominate">Nominate</a>
+        <a href="#about">About</a>
+        <span class="chip">Beta</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">Kenyan school basketball</div>
+          <h1>Find the next <span class="accent">great.</span></h1>
+          <p class="hero-copy">
+            A community-built watchlist for school and youth basketball talent across Kenya.
+            Score the best evidence, track standout performances, and grow from a Top 10 draft into a national youth leaderboard.
+          </p>
+
+          <div class="cta-row">
+            <a href="#rankings" class="btn btn-primary">Explore the Top 10</a>
+            <a href="#nominate" class="btn btn-secondary">Nominate a player</a>
+          </div>
+
+          <div class="hero-stats" aria-label="Platform stats">
+            <div class="stat-pill">
+              <strong>10</strong>
+              <span>Draft names</span>
+            </div>
+            <div class="stat-pill">
+              <strong>3</strong>
+              <span>Scouting factors</span>
+            </div>
+            <div class="stat-pill">
+              <strong>100%</strong>
+              <span>Local-first</span>
+            </div>
+          </div>
+
+          <div class="announcement">
+            <span>⚠</span>
+            <span>Draft ranking only — not an official national list. Stats and evidence still need verification.</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Basketball visual illustration">
+          <div class="court-glow"></div>
+          <div class="ball-scene">
+            <div class="ball" aria-hidden="true"></div>
+          </div>
+          <div class="score-card">
+            <strong>Top 10</strong>
+            <span>Kenya watchlist draft</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rankings">
+      <div class="section-head">
+        <div>
+          <h2>Top 10 watchlist</h2>
+          <p>Version 1 · Boys’ school basketball prospects</p>
+        </div>
+        <span class="chip">Nakuru → Kenya</span>
+      </div>
+
+      <div class="filters">
+        <input id="search" class="field search" type="search" placeholder="Search player or school…" aria-label="Search player or school">
+
+        <select id="schoolFilter" class="field" aria-label="Filter by school">
+          <option value="">All schools</option>
+          <option>Dr Aggrey School</option>
+          <option>Kenya U18</option>
+          <option>Crater Junior School</option>
+          <option>Lukenya School</option>
+          <option>Laiser Hill Academy</option>
+          <option>Dagoretti High</option>
+        </select>
+
+        <select id="sort" class="field">
+          <option value="rank">Editorial rank</option>
+          <option value="votes">Most local votes</option>
+        </select>
+      </div>
+
+      <div class="players" id="players"></div>
+      <p class="tiny">Ranks are provisional. “Local votes” are stored in this browser only and are not a public community tally.</p>
+    </section>
+
+    <section class="section" id="model">
+      <div class="grid-2">
+        <div class="box">
+          <h3>How rankings should work</h3>
+          <p>HoopRank KE should reward actual game value rather than only tournament wins or school reputation.</p>
+
+          <div class="score-grid">
+            <div class="score-box"><strong>30%</strong><span>Game impact</span></div>
+            <div class="score-box"><strong>25%</strong><span>Scoring</span></div>
+            <div class="score-box"><strong>20%</strong><span>Athleticism</span></div>
+            <div class="score-box"><strong>15%</strong><span>Defense</span></div>
+            <div class="score-box"><strong>10%</strong><span>Consistency</span></div>
+            <div class="score-box"><strong>Proof</strong><span>Stats / video</span></div>
+          </div>
+
+          <p class="tiny">Suggested starting model. It can be refined as data and verification standards improve.</p>
+        </div>
+
+        <div class="box" id="about">
+          <h3>How it works</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <h4>Nominate</h4>
+                <p>Submit a player, school, and supporting stats or evidence.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <h4>Verify</h4>
+                <p>Check tournament results, school records, and player context before ranking.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <h4>Rank</h4>
+                <p>Use clear scoring and transparent notes so the list is fair and explainable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="nominate">
+      <div class="grid-2">
+        <div class="box">
+          <h3>Nominate a player</h3>
+          <p>Use this demo to save a local entry. It does not send anything to a server yet.</p>
+          <form class="form" id="nominationForm">
+            <input id="nomName" required maxlength="70" placeholder="Player name">
+            <input id="nomSchool" required maxlength="100" placeholder="School / team">
+            <select id="nomLevel" required>
+              <option value="">Competition level</option>
+              <option>Junior school</option>
+              <option>High school</option>
+              <option>Kenya youth national team</option>
+            </select>
+            <textarea id="nomEvidence" maxlength="500" placeholder="Evidence: stats, tournament, game link, or notes"></textarea>
+            <button type="submit" class="btn btn-primary">Save nomination locally</button>
+            <div id="nomStatus" class="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div class="box">
+          <h3>Why this matters</h3>
+          <p>Kenyan basketball deserves a clearer pipeline from school-level play to national youth recognition.</p>
+          <p>HoopRank KE aims to become a transparent, evidence-based tracking tool for players, coaches, and fans.</p>
+          <p class="tiny">This page is intentionally local-first so it can work offline and be expanded into a real app later.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong>HoopRank KE</strong><br>
+        Built for Kenya's next wave of school basketball talent.
+      </div>
+      <div>
+        Version 1.0 · Community watchlist<br>
+        <span class="tiny">Not affiliated with FIBA or schools.</span>
       </div>
     </div>
-    <div class="hero-art" aria-label="Basketball illustration" role="img"><div class="ball"></div><div class="courtline"></div></div>
-  </section>
-  <div class="notice"><strong>Draft ranking, not an official national list.</strong> Some placements are editorial or scouting picks. Only a player's verified stats, school results, and game footage can establish a fair comparison. This demo's votes and nominations stay on this device; they are not sent to a server.</div>
+  </footer>
 
-  <section id="rankings">
-    <div class="section-head">
-      <div><h2>Top 10 Watchlist</h2><p>Version 1 · Boys’ school basketball prospects</p></div>
-      <span class="tag">Nakuru → Kenya</span>
-    </div>
-    <div class="filters">
-      <input id="search" type="search" placeholder="Search player or school…" aria-label="Search player or school">
-      <select id="schoolFilter" aria-label="Filter by school"><option value="">All schools</option><option>Dr Aggrey School</option><option>Kenya U18</option><option>Crater Junior School</option><option>Lukenya School</option><option>Laiser Hill Academy</option><option>Kenya youth basketball</option><option>Dagoretti High</option></select>
-      <select id="sort" aria-label="Sort players"><option value="rank">Editorial rank</option><option value="votes">Most local votes</option></select>
-    </div>
-    <div class="players" id="players"></div>
-    <p class="smallprint">Ranks are provisional. “Local votes” are saved in this browser only and are not community-wide votes.</p>
-  </section>
+  <script>
+    const roster = [
+      { rank: 1, name: 'Jacob Kayika', school: 'Dr Aggrey School', level: 'High school', detail: 'Reported 34 points in a 2025 national-school semifinal. One of the strongest documented scoring performances in the early draft.', tags: ['School competition', 'Scoring'], source: 'Verify current season stats and school status before treating this as a definitive national ranking.' },
+      { rank: 2, name: 'Emmanuel Kiplagat Choge', school: 'Kenya U18', level: 'Kenya youth national team', detail: 'Reported 17.0 points per game at the 2026 U18 Zone 5 qualifiers.', tags: ['U18', 'Scoring'], source: 'Youth national-team performance is useful but not directly comparable to school-league numbers.' },
+      { rank: 3, name: 'Leek Deng', school: 'Crater Junior School', level: 'Junior school', detail: 'Featured prospect based on project scouting notes: elite athleticism, control, and dominance in open-floor play.', tags: ['Featured prospect', 'Scouting pick'], source: 'Performance, age eligibility, and current school details still require independent verification.' },
+      { rank: 4, name: 'Dominic Yor', school: 'Lukenya School', level: 'High school', detail: 'Recorded 21 points in a 2025 national-school semifinal and shows all-around potential.', tags: ['School competition', 'All-around'], source: 'Use this as a provisional watchlist entry pending verification of the latest season.' },
+      { rank: 5, name: 'Chance Mutuma', school: 'Laiser Hill Academy', level: 'High school', detail: 'Strong volume scorer with good build-up ability and strong finishing in transition.', tags: ['School competition', 'Volume scorer'], source: 'Check match reports and current stats to confirm the latest form.' },
+      { rank: 6, name: 'Zaddock Jowi Cole', school: 'Kenya U18', level: 'Kenya youth national team', detail: 'Tied to an 8.7 points and 8.7 rebounds per game output at the 2026 U18 qualifiers.', tags: ['U18', 'All-around'], source: 'Needs confirmation on current school and age eligibility.' },
+      { rank: 7, name: 'David Mwasi', school: 'Kenya U18', level: 'Kenya youth national team', detail: 'Scoring guard profile with enough production to warrant future school-level comparison.', tags: ['U18', 'Guard'], source: 'Verify current school and on-court opportunities during the next season.' },
+      { rank: 8, name: 'Marvel Omondi', school: 'Dr Aggrey School', level: 'High school', detail: 'A prospect named for future scouting support based on national-school tournament visibility.', tags: ['Needs evidence'], source: 'Individual data needs more direct game-level evidence.' },
+      { rank: 9, name: 'Daniel Mutumbo', school: 'Dagoretti High', level: 'High school', detail: 'Previously reported as a scoring standout in school play, but support details still need confirmation.', tags: ['Needs evidence'], source: 'Check spelling, reported match, and current school status.' },
+      { rank: 10, name: 'Deng Weui', school: 'Laiser Hill Academy', level: 'High school', detail: 'A developmental prospect with upside but not enough verified data to establish a stronger ranking yet.', tags: ['Needs evidence'], source: 'Needs direct evidence from recent games and official stats.' }
+    ];
 
-  <section class="two-col">
-    <div class="box">
-      <h2>How rankings should work</h2>
-      <p>HoopRank KE should reward performance—not just how far a team advanced.</p>
-      <div class="criteria">
-        <div class="criterion"><b>30%</b>Game impact</div>
-        <div class="criterion"><b>25%</b>Skill & scoring</div>
-        <div class="criterion"><b>20%</b>Athleticism</div>
-        <div class="criterion"><b>15%</b>Defense</div>
-        <div class="criterion"><b>10%</b>Consistency</div>
-        <div class="criterion"><b>Proof</b>Stats/video</div>
-      </div>
-      <p class="smallprint">Suggested scoring model; adjust it as the project grows.</p>
-    </div>
-    <div class="box" id="nominate">
-      <h2>Nominate a player</h2>
-      <p>Help expand the list. Please only submit details you have permission to share, especially for under-18 players.</p>
-      <form class="form" id="nominationForm">
-        <input id="nomName" required maxlength="70" placeholder="Player name">
-        <input id="nomSchool" required maxlength="100" placeholder="School / team">
-        <select id="nomLevel" required><option value="">Competition level</option><option>Junior school</option><option>High school</option><option>Kenya youth national team</option></select>
-        <textarea id="nomEvidence" maxlength="500" placeholder="Evidence: stats, tournament, game link (optional)"></textarea>
-        <button class="btn btn-primary" type="submit">Save nomination on this device</button>
-        <div class="status" id="nomStatus" aria-live="polite"></div>
-        <small>This prototype does not upload nominations. Connect a form/database before publishing if you want to collect entries from everyone.</small>
-      </form>
-    </div>
-  </section>
-</main>
-<footer><div class="wrap footrow"><div><strong>HOOPRANK <span style="color:var(--orange)">KE</span></strong><br>Built for Kenyan school basketball.</div><div>Version 1.0 · Community watchlist<br><span class="smallprint">Not affiliated with FIBA or school associations.</span></div></div></footer>
-<script>
-const roster = [
- {rank:1,name:"Jacob Kayika",school:"Dr Aggrey School",level:"High school",detail:"Reported 34 points in a 2025 national-school semifinal. A strong candidate based on one documented performance.",tags:["School competition","Reported game stat"],source:"Verify current school and season stats before treating this as a national ranking."},
- {rank:2,name:"Emmanuel Kiplagat Choge",school:"Kenya U18",level:"Kenya youth national team",detail:"Reported 17.0 points per game at the 2026 U18 Zone 5 qualifiers.",tags:["U18","Scoring"],source:"Youth national-team performance; not directly comparable to school-league stats."},
- {rank:3,name:"Leek Deng",school:"Crater Junior School",level:"Junior school",detail:"Featured prospect based on the project creator’s scouting assessment: elite athleticism and dominance. Height listed as 6'3\" based on supplied information.",tags:["Featured prospect","Scouting pick"],source:"Performance, age eligibility and statistics have not been independently verified."},
- {rank:4,name:"Dominic Yor",school:"Lukenya School",level:"High school",detail:"Reported 21 points in a 2025 national-school semifinal.",tags:["School competition"],source:"Verify current season stats and eligibility."},
- {rank:5,name:"Chance Mutuma",school:"Laiser Hill Academy",level:"High school",detail:"Reported 14 points in a 2025 national-school semifinal.",tags:["School competition"],source:"Verify current season stats and eligibility."},
- {rank:6,name:"Zaddock Jowi Cole",school:"Kenya U18",level:"Kenya youth national team",detail:"Reported 8.7 points and 8.7 rebounds per game at the 2026 U18 qualifiers.",tags:["U18","All-around"],source:"Youth national-team performance; verify age and current school."},
- {rank:7,name:"David Mwasi",school:"Kenya U18",level:"Kenya youth national team",detail:"Reported 9.3 points per game at the 2026 U18 qualifiers.",tags:["U18","Scoring"],source:"Verify current school and eligibility."},
- {rank:8,name:"Marvel Omondi",school:"Dr Aggrey School",level:"High school",detail:"Named as a player to scout from the 2025 national-school competition.",tags:["Needs more evidence"],source:"Individual performance data needs verification."},
- {rank:9,name:"Daniel Mutumbo",school:"Dagoretti High",level:"High school",detail:"Previously reported as a 2025 national-semifinal scoring standout; details need confirmation.",tags:["Needs more evidence"],source:"Verify spelling, match report and current school."},
- {rank:10,name:"Deng Weui",school:"Laiser Hill Academy",level:"High school",detail:"Previously reported in school championship coverage; individual ranking evidence needs confirmation.",tags:["Needs more evidence"],source:"Verify spelling, match report and current school."}
-];
-const voteKey="hooprank-ke-votes-v1", nomKey="hooprank-ke-nominations-v1";
-let votes=JSON.parse(localStorage.getItem(voteKey)||"{}");
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
-function render(){
- const q=document.getElementById("search").value.toLowerCase().trim(), sf=document.getElementById("schoolFilter").value, sort=document.getElementById("sort").value;
- let list=roster.filter(p=>(p.name+" "+p.school+" "+p.level).toLowerCase().includes(q)&&(!sf||p.school===sf));
- if(sort==="votes")list.sort((a,b)=>(votes[b.rank]||0)-(votes[a.rank]||0));else list.sort((a,b)=>a.rank-b.rank);
- document.getElementById("players").innerHTML=list.map(p=>`<article class="player ${p.rank===3?"featured":""}">
- <div class="rank">${String(p.rank).padStart(2,"0")}</div><div><h3>${esc(p.name)} ${p.rank===3?'<span class="pill">Featured</span>':""}</h3>
- <div class="meta">${esc(p.school)} · ${esc(p.level)}</div><p>${esc(p.detail)}</p>
- ${p.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}
- <button class="vote" data-vote="${p.rank}" ${votes["voted_"+p.rank]?"disabled":""}>${votes["voted_"+p.rank]?"✓ Voted on this device":"▲ Vote locally"}</button><span class="count">${votes[p.rank]||0} local vote${(votes[p.rank]||0)===1?"":"s"}</span>
- <p class="smallprint">${esc(p.source)}</p></div></article>`).join("");
- document.querySelectorAll("[data-vote]").forEach(b=>b.addEventListener("click",()=>{const r=b.dataset.vote;if(votes["voted_"+r])return;votes[r]=(votes[r]||0)+1;votes["voted_"+r]=true;localStorage.setItem(voteKey,JSON.stringify(votes));render();}));
-}
-document.getElementById("search").addEventListener("input",render);
-document.getElementById("schoolFilter").addEventListener("change",render);
-document.getElementById("sort").addEventListener("change",render);
-document.getElementById("nominationForm").addEventListener("submit",e=>{e.preventDefault();let list=JSON.parse(localStorage.getItem(nomKey)||"[]");list.push({name:document.getElementById("nomName").value.trim(),school:document.getElementById("nomSchool").value.trim(),level:document.getElementById("nomLevel").value,evidence:document.getElementById("nomEvidence").value.trim(),savedAt:new Date().toISOString()});localStorage.setItem(nomKey,JSON.stringify(list));document.getElementById("nomStatus").textContent="Nomination saved in this browser. It has not been submitted publicly.";e.target.reset();});
-render();
-</script>
+    const voteKey = 'hooprank-ke-votes-v1';
+    const nomKey = 'hooprank-ke-nominations-v1';
+    let votes = JSON.parse(localStorage.getItem(voteKey) || '{}');
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function renderPlayers() {
+      const searchTerm = document.getElementById('search').value.toLowerCase().trim();
+      const schoolFilter = document.getElementById('schoolFilter').value;
+      const sortBy = document.getElementById('sort').value;
+
+      let list = roster.filter(player => {
+        const haystack = `${player.name} ${player.school} ${player.level}`.toLowerCase();
+        const matchesSearch = haystack.includes(searchTerm);
+        const matchesSchool = !schoolFilter || player.school === schoolFilter;
+        return matchesSearch && matchesSchool;
+      });
+
+      if (sortBy === 'votes') {
+        list.sort((a, b) => (votes[b.rank] || 0) - (votes[a.rank] || 0));
+      } else {
+        list.sort((a, b) => a.rank - b.rank);
+      }
+
+      document.getElementById('players').innerHTML = list.map(player => `
+        <article class="player-card ${player.rank === 3 ? 'featured' : ''}">
+          <div class="player-rank">${String(player.rank).padStart(2, '0')}</div>
+          <div>
+            <div class="player-name">
+              <h3>${escapeHTML(player.name)}</h3>
+              ${player.rank === 3 ? '<span class="tag">Featured</span>' : ''}
+            </div>
+
+            <div class="player-meta">${escapeHTML(player.school)} · ${escapeHTML(player.level)}</div>
+            <p class="player-story">${escapeHTML(player.detail)}</p>
+
+            <div class="tags">
+              ${player.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')}
+            </div>
+
+            <div class="vote-row">
+              <button class="vote-btn" data-vote="${player.rank}" ${votes['voted_' + player.rank] ? 'disabled' : ''}>
+                ${votes['voted_' + player.rank] ? '✓ Voted locally' : '▲ Vote locally'}
+              </button>
+              <span class="vote-count">${votes[player.rank] || 0} local vote${(votes[player.rank] || 0) === 1 ? '' : 's'}</span>
+            </div>
+
+            <p class="tiny">${escapeHTML(player.source)}</p>
+          </div>
+        </article>
+      `).join('');
+
+      document.querySelectorAll('[data-vote]').forEach(button => {
+        button.addEventListener('click', () => {
+          const rank = Number(button.dataset.vote);
+          const votedKey = 'voted_' + rank;
+          if (votes[votedKey]) return;
+
+          votes[rank] = (votes[rank] || 0) + 1;
+          votes[votedKey] = true;
+          localStorage.setItem(voteKey, JSON.stringify(votes));
+          renderPlayers();
+        });
+      });
+    }
+
+    document.getElementById('search').addEventListener('input', renderPlayers);
+    document.getElementById('schoolFilter').addEventListener('change', renderPlayers);
+    document.getElementById('sort').addEventListener('change', renderPlayers);
+
+    document.getElementById('nominationForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const nomination = {
+        name: document.getElementById('nomName').value.trim(),
+        school: document.getElementById('nomSchool').value.trim(),
+        level: document.getElementById('nomLevel').value,
+        evidence: document.getElementById('nomEvidence').value.trim(),
+        savedAt: new Date().toISOString()
+      };
+
+      let list = JSON.parse(localStorage.getItem(nomKey) || '[]');
+      list.push(nomination);
+      localStorage.setItem(nomKey, JSON.stringify(list));
+
+      document.getElementById('nomStatus').textContent = 'Nomination saved in this browser. It has not been uploaded publicly.';
+      event.target.reset();
+    });
+
+    renderPlayers();
+  </script>
 </body>
 </html>
